@@ -9,6 +9,11 @@ import matplotlib.ticker as ticker
 import csv
 import operator
 
+###REVISITATION
+# Refactoring price formatting logic: Display in USD with two decimals
+def to_usd(product_price):
+    return "${0:,.2f}".format(product_price)
+
 
 ### Introducing User to the executive dashboard
 print("--------------------")
@@ -48,7 +53,7 @@ month_name_in_full  = month_converter(month)
 monthly_data=pandas.read_csv(file_name) ##Read CSV 
 monthly_total = monthly_data["sales price"].sum() # Sum of the column in csv file titles "Sales Price"
 print("------------------")
-print(month_name_in_full+ " " + year + " Sales Total: $" + "{0:,.2f}".format(monthly_total)) #Dashboard sales result. Used month converter function to display month name, and USD syntax for dollar formatting
+print(month_name_in_full+ " " + year + " Sales Total: $" + to_usd(monthly_total)) #Dashboard sales result. Used month converter function to display month name, and USD syntax for dollar formatting
 products = monthly_data["product"]
 #Top products formation
 unique_products = products.unique() ## Adapted from Professor alternative solution
@@ -66,7 +71,7 @@ print("Top Selling Products:")
 #Printing text of top sellers
 Tracker = 1
 for d in top_sellers:
-    print("  " + str(Tracker) + ": " + str(d["name"]) + ": $" + "{0:,.2f}".format(d["monthly_sales"])) ###converted float to string
+    print("  " + str(Tracker) + ": " + str(d["name"]) + ": $" + to_usd(d["monthly_sales"])) ###converted float to string
     Tracker = Tracker + 1
 
 print("------------------")
