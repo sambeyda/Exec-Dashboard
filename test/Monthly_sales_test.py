@@ -1,7 +1,6 @@
 #Testing for Executive Dashboard Project
 
-from app.Monthly_sales import to_usd, get_top_sellers
-import pandas
+from app.Monthly_sales import to_usd, get_top_sellers, pandas
 import os
 
 def test_to_usd():
