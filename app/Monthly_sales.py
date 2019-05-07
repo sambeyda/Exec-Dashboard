@@ -13,6 +13,19 @@ import operator
 # Refactoring price formatting logic: Display in USD with two decimals
 def to_usd(product_price):
     return "${0:,.2f}".format(product_price)
+#Refactoring top-selling product identification logic: Makes sure function returns top sellers in  
+def get_top_sellers(top_seller):
+    products = top_seller["product"] #Return product name
+    unique_products = products.unique() ## Adapted from Professor alternative solution
+    unique_products = unique_products.tolist()
+    top_sellers = [] # Create list for top seller output
+    for p in unique_products:
+        row = top_seller[top_seller["product"] == p ] 
+        sales_by_product = row["sales price"].sum()
+        top_sellers.append({"name": p, "monthly_sales": sales_by_product})
+    #Sorting the list of top sellers by variable of "monthly_sales"
+    top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True) ##
+    return top_sellers
 
 if __name__ == "__main__":
     ### Introducing User to the executive dashboard
@@ -52,26 +65,27 @@ if __name__ == "__main__":
     ##READING CSV FILE
     monthly_data=pandas.read_csv(file_name) ##Read CSV 
     monthly_total = monthly_data["sales price"].sum() # Sum of the column in csv file titles "Sales Price"
+    top_sellers = get_top_sellers(monthly_data)
     print("------------------")
-    print(month_name_in_full+ " " + year + " Sales Total: $" + to_usd(monthly_total)) #Dashboard sales result. Used month converter function to display month name, and USD syntax for dollar formatting
-    products = monthly_data["product"]
+    print(month_name_in_full+ " " + year + " Sales Total: " + to_usd(monthly_total)) #Dashboard sales result. Used month converter function to display month name, and USD syntax for dollar formatting
+    #####products = monthly_data["product"]
     #Top products formation
-    unique_products = products.unique() ## Adapted from Professor alternative solution
-    unique_products = unique_products.tolist()
-    top_sellers = [] # Create list for top seller output
+    #####unique_products = products.unique() ## Adapted from Professor alternative solution
+    #####unique_products = unique_products.tolist()
+    #####top_sellers = [] # Create list for top seller output
     # filering approach adapted from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/pandas.md
-    for p in unique_products:
-        row = monthly_data[monthly_data["product"] == p ] 
-        sales_by_product = row["sales price"].sum()
-        top_sellers.append({"name": p, "monthly_sales": sales_by_product})
+    #####for p in unique_products:
+        #####row = monthly_data[monthly_data["product"] == p ] 
+        #####sales_by_product = row["sales price"].sum()
+        #####top_sellers.append({"name": p, "monthly_sales": sales_by_product})
     #Sorting the list of top sellers by variable of "monthly_sales"
-    top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True) ##
+    #####top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True) ##
     print("------------------")
     print("Top Selling Products:")
     #Printing text of top sellers
     Tracker = 1
     for d in top_sellers:
-        print("  " + str(Tracker) + ": " + str(d["name"]) + ": $" + to_usd(d["monthly_sales"])) ###converted float to string
+        print("  " + str(Tracker) + ": " + str(d["name"]) + ": " + to_usd(d["monthly_sales"])) ###converted float to string
         Tracker = Tracker + 1
 
     print("------------------")
