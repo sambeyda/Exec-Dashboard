@@ -1,8 +1,7 @@
 #Testing for Executive Dashboard Project
 
-from app.Monthly_sales import to_usd, get_top_sellers, pandas
-import os
-
+from app.Monthly_sales import to_usd, get_top_sellers
+#Basic Challenge
 def test_to_usd():
     #Tests whether number is returned with $ sign and two decimal places
     assert to_usd(10) == "$10.00"
@@ -13,6 +12,7 @@ def test_to_usd():
     #Tests whether there is a thousand seperator
     assert to_usd(10000) == "$10,000.00"
 
+#Intermediate Challenge
 def test_get_top_sellers():
     # it should return a list of names and sales totals, sorted by sales ascending with top sellers first:
     file_name = "sales-201902.csv"
