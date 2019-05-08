@@ -1,6 +1,8 @@
 #Testing for Executive Dashboard Project
 
 from app.Monthly_sales import to_usd, get_top_sellers
+import os
+import pandas
 #Basic Challenge
 def test_to_usd():
     #Tests whether number is returned with $ sign and two decimal places
