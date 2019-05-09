@@ -20,7 +20,7 @@ def get_top_sellers(top_seller):
     unique_products = unique_products.tolist()
     top_sellers = [] # Create list for top seller output
     for p in unique_products:
-        row = top_seller[top_seller["product"] == p ] 
+        row = top_seller[top_seller["product"] == p] 
         sales_by_product = row["sales price"].sum()
         top_sellers.append({"name": p, "monthly_sales": sales_by_product})
     #Sorting the list of top sellers by variable of "monthly_sales"

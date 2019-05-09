@@ -17,10 +17,10 @@ def test_to_usd():
 #Intermediate Challenge
 def test_get_top_sellers():
     # it should return a list of names and sales totals, sorted by sales ascending with top sellers first:
-    file_name = "sales-201902.csv"
-    file_path = os.path.join(os.path.dirname(__file__), file_name)
-    monthly_data = pandas.read_csv(file_path)
-    results = get_top_sellers(monthly_data)
+    file_name = "sales-201902.csv" #Example file
+    file_path = os.path.join(os.path.dirname(__file__), file_name) #filepath
+    monthly_data = pandas.read_csv(file_path) #read file-path
+    results = get_top_sellers(monthly_data) #invoke function
     expected_result = [
         {'name': 'Button-Down Shirt', 'monthly_sales': 6179.75},
         {'name': 'Super Soft Hoodie', 'monthly_sales': 2175.0},
@@ -31,4 +31,4 @@ def test_get_top_sellers():
         {'name': 'Winter Hat', 'monthly_sales': 168.34999999999997}, #Adjustment for pytest to work
         {'name': 'Brown Boots', 'monthly_sales': 125.0}
     ]
-    assert results == expected_result
+    assert results == expected_result #Make sure top sellers data is correct
